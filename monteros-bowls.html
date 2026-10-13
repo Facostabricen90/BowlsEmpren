@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Montero's Bowls — La Dorada, Caldas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#1A120B;
+  --ink2:#4A2E1A;
+  --cream:#FBF7F0;
+  --warm:#F2E8D5;
+  --tan:#C8975A;
+  --tan-l:#E8C899;
+  --green:#3A5E35;
+  --green-l:#5C8C54;
+  --white:#FFFFFF;
+  --shadow:0 2px 24px rgba(26,18,11,.10);
+  --r:16px;
+  --ease:cubic-bezier(.4,0,.2,1);
+}
+html{scroll-behavior:smooth}
+body{font-family:'Outfit',sans-serif;background:var(--cream);color:var(--ink);overflow-x:hidden}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+
+/* ─── UTILS ─── */
+.container{width:min(1180px,92%);margin-inline:auto}
+.tag{display:inline-flex;align-items:center;gap:6px;font-size:.72rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:5px 14px;border-radius:40px}
+.tag--green{background:var(--green);color:#E8F5E4}
+.tag--tan{background:var(--tan-l);color:var(--ink)}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:40px;font-size:.9rem;font-weight:600;font-family:'Outfit',sans-serif;cursor:pointer;transition:all .22s var(--ease);border:none}
+.btn--dark{background:var(--ink);color:var(--cream)}
+.btn--dark:hover{background:var(--ink2);transform:translateY(-2px);box-shadow:0 8px 28px rgba(26,18,11,.25)}
+.btn--outline{background:transparent;border:1.5px solid var(--ink);color:var(--ink)}
+.btn--outline:hover{background:var(--ink);color:var(--cream)}
+.btn--green{background:var(--green);color:#E8F5E4}
+.btn--green:hover{background:#2d4a28;transform:translateY(-2px);box-shadow:0 8px 28px rgba(58,94,53,.3)}
+.btn--wa{background:#25D366;color:#fff;padding:16px 32px;font-size:1rem}
+.btn--wa:hover{background:#1eb559;transform:translateY(-2px);box-shadow:0 8px 28px rgba(37,211,102,.35)}
+
+/* ─── NAV ─── */
+.nav{position:fixed;inset:0 0 auto;z-index:200;height:68px;display:flex;align-items:center;transition:background .35s,box-shadow .35s}
+.nav.up{background:rgba(251,247,240,.92);backdrop-filter:blur(16px);box-shadow:0 1px 0 rgba(200,151,90,.18)}
+.nav .container{display:flex;align-items:center;justify-content:space-between;width:100%}
+.nav__logo{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:700;letter-spacing:-.01em}
+.nav__logo b{color:var(--tan)}
+.nav__links{display:flex;align-items:center;gap:32px;list-style:none}
+.nav__links a{font-size:.85rem;font-weight:500;color:var(--ink2);letter-spacing:.02em;transition:color .2s}
+.nav__links a:hover{color:var(--tan)}
+.nav__cta{background:var(--ink);color:var(--cream);padding:9px 22px;border-radius:40px;font-size:.82rem;font-weight:600;transition:all .22s}
+.nav__cta:hover{background:var(--ink2);transform:translateY(-1px)}
+.nav__burger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+.nav__burger span{display:block;width:22px;height:1.5px;background:var(--ink);border-radius:2px;transition:all .25s}
+
+/* ─── HERO ─── */
+.hero{min-height:100svh;display:grid;grid-template-columns:1fr 1fr;position:relative;overflow:hidden}
+.hero__left{display:flex;flex-direction:column;justify-content:center;padding:120px 0 80px 7%;position:relative;z-index:2}
+.hero__eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:28px;opacity:0;animation:fadeUp .7s var(--ease) .2s forwards}
+.hero__dot{width:8px;height:8px;border-radius:50%;background:var(--green-l)}
+.hero__eyebrow span{font-size:.75rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--green)}
+.hero__h1{font-family:'Cormorant Garamond',serif;font-size:clamp(3.2rem,5.5vw,6rem);font-weight:700;line-height:.98;letter-spacing:-.03em;color:var(--ink);opacity:0;animation:fadeUp .7s var(--ease) .35s forwards}
+.hero__h1 em{font-style:italic;color:var(--tan)}
+.hero__value{margin-top:22px;font-size:1.05rem;font-weight:300;color:var(--ink2);line-height:1.65;max-width:400px;opacity:0;animation:fadeUp .7s var(--ease) .5s forwards}
+.hero__pills{display:flex;gap:10px;flex-wrap:wrap;margin-top:28px;opacity:0;animation:fadeUp .7s var(--ease) .62s forwards}
+.pill{background:var(--warm);color:var(--ink2);font-size:.76rem;font-weight:500;padding:7px 16px;border-radius:40px;border:1px solid rgba(200,151,90,.25)}
+.hero__ctas{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-top:40px;opacity:0;animation:fadeUp .7s var(--ease) .75s forwards}
+.hero__link{font-size:.88rem;font-weight:500;color:var(--ink2);border-bottom:1px solid var(--tan);padding-bottom:1px;transition:color .2s}
+.hero__link:hover{color:var(--tan)}
+.hero__social-proof{display:flex;align-items:center;gap:14px;margin-top:48px;padding-top:40px;border-top:1px solid rgba(200,151,90,.25);opacity:0;animation:fadeUp .7s var(--ease) .88s forwards}
+.avatars{display:flex}
+.avatars img{width:36px;height:36px;border-radius:50%;border:2.5px solid var(--cream);margin-right:-10px;object-fit:cover}
+.sp__text{font-size:.8rem;color:var(--ink2)}
+.sp__text strong{color:var(--ink);font-weight:600}
+.sp__stars{color:var(--tan);font-size:.85rem;letter-spacing:-.03em}
+.hero__right{position:relative;overflow:hidden}
+.hero__img{width:100%;height:100%;object-fit:cover;animation:zoomIn 1.4s var(--ease) both}
+.hero__veil{position:absolute;inset:0;background:linear-gradient(90deg,var(--cream) 0%,transparent 22%)}
+.hero__float{position:absolute;bottom:10%;right:7%;z-index:3;background:var(--white);border-radius:var(--r);padding:18px 22px;box-shadow:var(--shadow);min-width:160px;animation:fadeUp .8s var(--ease) 1.1s both}
+.hf__icon{font-size:1.6rem;margin-bottom:6px}
+.hf__num{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:700;color:var(--ink);line-height:1}
+.hf__label{font-size:.72rem;color:var(--ink2);font-weight:400;margin-top:2px}
+
+/* ─── TICKER ─── */
+.ticker{background:var(--ink);padding:14px 0;overflow:hidden;white-space:nowrap}
+.ticker__track{display:inline-flex;animation:ticker 20s linear infinite}
+.ticker__track:hover{animation-play-state:paused}
+.ticker__item{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.1rem;color:var(--cream);opacity:.85;padding:0 32px}
+.ticker__sep{color:var(--tan);opacity:1!important;font-style:normal;padding:0 8px}
+
+/* ─── WHY (value prop) ─── */
+.why{padding:100px 0;background:var(--white)}
+.why .container{display:grid;grid-template-columns:1fr 1.2fr;gap:80px;align-items:center}
+.section__tag{font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--green);margin-bottom:14px}
+.section__h2{font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,3vw,3.4rem);font-weight:700;line-height:1.08;letter-spacing:-.03em;color:var(--ink);margin-bottom:22px}
+.section__h2 em{font-style:italic;color:var(--tan)}
+.section__body{font-size:.95rem;font-weight:300;color:var(--ink2);line-height:1.75}
+.why__cards{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:40px}
+.why__card{background:var(--cream);border-radius:var(--r);padding:22px;border:1px solid rgba(200,151,90,.18)}
+.wc__icon{font-size:1.5rem;margin-bottom:12px}
+.wc__title{font-weight:600;font-size:.95rem;color:var(--ink);margin-bottom:6px}
+.wc__desc{font-size:.82rem;font-weight:300;color:var(--ink2);line-height:1.6}
+.why__img-stack{position:relative;height:480px}
+.wi__main{position:absolute;top:0;left:0;width:75%;height:80%;object-fit:cover;border-radius:0 var(--r) 80px 0;box-shadow:var(--shadow)}
+.wi__accent{position:absolute;bottom:0;right:0;width:58%;height:52%;object-fit:cover;border-radius:80px 0 0 var(--r);border:5px solid var(--white);box-shadow:var(--shadow)}
+.wi__chip{position:absolute;top:78%;left:50%;transform:translate(-50%,-50%);background:var(--tan);color:var(--ink);font-size:.78rem;font-weight:700;padding:9px 18px;border-radius:40px;white-space:nowrap;box-shadow:0 4px 16px rgba(200,151,90,.4)}
+
+/* ─── MENU ─── */
+.menu-sec{padding:100px 0;background:var(--cream)}
+.menu-sec .sec-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:52px}
+.sec-head__cta{font-size:.82rem;font-weight:500;color:var(--ink2);border-bottom:1px solid var(--tan);padding-bottom:2px;transition:color .2s}
+.sec-head__cta:hover{color:var(--tan)}
+.menu__tabs{display:flex;gap:8px;margin-bottom:36px;flex-wrap:wrap}
+.mtab{font-size:.8rem;font-weight:500;padding:8px 20px;border-radius:40px;border:1px solid rgba(200,151,90,.35);color:var(--ink2);cursor:pointer;transition:all .2s}
+.mtab.active,.mtab:hover{background:var(--ink);color:var(--cream);border-color:var(--ink)}
+.menu__grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:20px}
+.mcard{background:var(--white);border-radius:var(--r);overflow:hidden;cursor:pointer;transition:transform .25s var(--ease),box-shadow .25s var(--ease);border:1px solid rgba(200,151,90,.12)}
+.mcard:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(26,18,11,.12)}
+.mcard__img{height:200px;overflow:hidden;position:relative}
+.mcard__img img{width:100%;height:100%;object-fit:cover;transition:transform .5s var(--ease)}
+.mcard:hover .mcard__img img{transform:scale(1.05)}
+.mcard__badge{position:absolute;top:12px;right:12px;font-size:.65rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:4px 12px;border-radius:40px}
+.badge--pop{background:var(--tan);color:var(--ink)}
+.badge--veg{background:#3A5E35;color:#E8F5E4}
+.badge--new{background:var(--ink);color:var(--cream)}
+.mcard__body{padding:18px}
+.mcard__name{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:700;color:var(--ink)}
+.mcard__ing{font-size:.78rem;font-weight:300;color:var(--ink2);margin-top:4px;line-height:1.5}
+.mcard__footer{display:flex;justify-content:space-between;align-items:center;margin-top:14px;padding-top:14px;border-top:1px solid rgba(200,151,90,.18)}
+.mcard__cals{font-size:.72rem;color:var(--ink2);font-weight:400}
+.mcard__cals strong{color:var(--green);font-weight:600}
+.mcard__add{background:var(--ink);color:var(--cream);font-size:.75rem;font-weight:600;padding:7px 16px;border-radius:40px;border:none;cursor:pointer;font-family:'Outfit',sans-serif;transition:background .2s}
+.mcard__add:hover{background:var(--tan);color:var(--ink)}
+
+/* ─── PRICING ─── */
+.pricing{padding:100px 0;background:var(--ink)}
+.pricing .section__h2{color:var(--cream)}
+.pricing .section__h2 em{color:var(--tan)}
+.pricing .section__tag{color:var(--tan-l)}
+.pricing .section__body{color:rgba(251,247,240,.65)}
+.pricing__head{text-align:center;margin-bottom:60px}
+.pricing__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.pcard{background:rgba(255,255,255,.05);border:1px solid rgba(200,151,90,.2);border-radius:20px;padding:36px 28px;position:relative;transition:transform .25s var(--ease)}
+.pcard:hover{transform:translateY(-4px)}
+.pcard--featured{background:var(--tan);border-color:var(--tan)}
+.pcard__pop{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:var(--green);color:#E8F5E4;font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:5px 16px;border-radius:40px;white-space:nowrap}
+.pcard__name{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:700;color:var(--cream);margin-bottom:8px}
+.pcard--featured .pcard__name{color:var(--ink)}
+.pcard__desc{font-size:.8rem;font-weight:300;color:rgba(251,247,240,.6);line-height:1.55;margin-bottom:24px}
+.pcard--featured .pcard__desc{color:var(--ink2)}
+.pcard__price{display:flex;align-items:baseline;gap:4px;margin-bottom:28px}
+.pcard__amount{font-family:'Cormorant Garamond',serif;font-size:3rem;font-weight:700;color:var(--cream);line-height:1}
+.pcard--featured .pcard__amount{color:var(--ink)}
+.pcard__currency{font-size:1rem;font-weight:400;color:rgba(251,247,240,.6);align-self:flex-start;margin-top:10px}
+.pcard--featured .pcard__currency{color:var(--ink2)}
+.pcard__items{list-style:none;display:flex;flex-direction:column;gap:12px;margin-bottom:32px}
+.pcard__items li{display:flex;align-items:center;gap:10px;font-size:.85rem;font-weight:300;color:rgba(251,247,240,.8)}
+.pcard--featured .pcard__items li{color:var(--ink)}
+.pcard__items li::before{content:'';width:16px;height:16px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%235C8C54' d='M13.3 3.3L6 10.6 2.7 7.3 1.3 8.7l4.7 4.7 8.7-8.7z'/%3E%3C/svg%3E") center/contain no-repeat;flex-shrink:0}
+.pcard--featured .pcard__items li::before{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%231A120B' d='M13.3 3.3L6 10.6 2.7 7.3 1.3 8.7l4.7 4.7 8.7-8.7z'/%3E%3C/svg%3E") center/contain no-repeat}
+.pcard__btn--outline{background:transparent;border:1.5px solid rgba(251,247,240,.35);color:var(--cream);width:100%;justify-content:center;font-size:.88rem}
+.pcard__btn--outline:hover{background:var(--cream);color:var(--ink);border-color:var(--cream)}
+.pcard__btn--solid{background:var(--ink);color:var(--cream);width:100%;justify-content:center;font-size:.88rem}
+.pcard__btn--solid:hover{background:var(--ink2)}
+.pricing__note{text-align:center;margin-top:40px;font-size:.8rem;color:rgba(251,247,240,.4)}
+
+/* ─── TESTIMONIALS ─── */
+.reviews{padding:100px 0;background:var(--white)}
+.reviews .container{display:grid;grid-template-columns:1fr 2fr;gap:80px;align-items:start}
+.reviews__left .section__h2{margin-bottom:12px}
+.rev__score{display:flex;align-items:baseline;gap:8px;margin-bottom:4px}
+.rev__num{font-family:'Cormorant Garamond',serif;font-size:3.5rem;font-weight:700;color:var(--ink);line-height:1}
+.rev__stars{color:var(--tan);font-size:1rem;letter-spacing:.05em}
+.rev__total{font-size:.82rem;color:var(--ink2);font-weight:300;margin-bottom:32px}
+.rev__grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.rcard{background:var(--cream);border-radius:var(--r);padding:22px;border:1px solid rgba(200,151,90,.15)}
+.rcard__stars{color:var(--tan);font-size:.88rem;margin-bottom:10px}
+.rcard__text{font-size:.88rem;font-weight:300;color:var(--ink);line-height:1.65;margin-bottom:16px}
+.rcard__author{display:flex;align-items:center;gap:10px}
+.rcard__avatar{width:36px;height:36px;border-radius:50%;object-fit:cover}
+.rcard__name{font-size:.82rem;font-weight:600;color:var(--ink)}
+.rcard__loc{font-size:.72rem;color:var(--ink2);font-weight:300}
+
+/* ─── LOCATION ─── */
+.location{padding:100px 0;background:var(--cream)}
+.location .container{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.location__map{border-radius:var(--r);overflow:hidden;height:380px;background:var(--warm);position:relative;border:1px solid rgba(200,151,90,.2)}
+.map__pin{position:absolute;top:50%;left:50%;transform:translate(-50%,-60%);z-index:2;text-align:center}
+.map__pin__dot{width:20px;height:20px;background:var(--tan);border-radius:50%;margin:0 auto;box-shadow:0 0 0 6px rgba(200,151,90,.25),0 0 0 12px rgba(200,151,90,.1);animation:pulse 2s ease-in-out infinite}
+.map__pin__line{width:2px;height:28px;background:var(--tan);margin:0 auto}
+.map__pin__label{background:var(--ink);color:var(--cream);font-size:.75rem;font-weight:600;padding:6px 14px;border-radius:40px;margin-top:6px;white-space:nowrap}
+.map__img{width:100%;height:100%;object-fit:cover;opacity:.35}
+.loc__tag{margin-bottom:16px}
+.loc__h2{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,3vw,3rem);font-weight:700;line-height:1.1;letter-spacing:-.03em;color:var(--ink);margin-bottom:20px}
+.loc__h2 em{font-style:italic;color:var(--tan)}
+.loc__p{font-size:.93rem;font-weight:300;color:var(--ink2);line-height:1.75;margin-bottom:28px}
+.loc__infos{display:flex;flex-direction:column;gap:14px;margin-bottom:36px}
+.loc__info{display:flex;align-items:flex-start;gap:14px}
+.loc__icon{width:40px;height:40px;background:var(--warm);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0}
+.loc__detail strong{display:block;font-size:.88rem;font-weight:600;color:var(--ink)}
+.loc__detail span{font-size:.8rem;font-weight:300;color:var(--ink2)}
+.loc__ctas{display:flex;gap:12px;flex-wrap:wrap}
+
+/* ─── CTA BAND ─── */
+.cta-band{padding:100px 0;background:var(--green)}
+.cta-band .container{text-align:center}
+.cta-band .section__h2{color:var(--cream);margin-bottom:16px;max-width:600px;margin-inline:auto}
+.cta-band .section__body{color:rgba(232,245,228,.75);max-width:480px;margin-inline:auto;margin-bottom:44px}
+.cta-band__group{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+
+/* ─── FOOTER ─── */
+footer{background:var(--ink);padding:72px 0 32px}
+.footer__grid{display:grid;grid-template-columns:1.8fr 1fr 1fr;gap:60px;margin-bottom:60px}
+.footer__brand{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:700;color:var(--cream);margin-bottom:14px}
+.footer__brand b{color:var(--tan)}
+.footer__desc{font-size:.86rem;font-weight:300;color:rgba(251,247,240,.5);line-height:1.7;margin-bottom:28px}
+.footer__socials{display:flex;gap:10px}
+.fsoc{width:38px;height:38px;border-radius:50%;border:1px solid rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;color:rgba(251,247,240,.7);font-size:.75rem;font-weight:600;transition:all .22s;text-decoration:none}
+.fsoc:hover{background:var(--tan);border-color:var(--tan);color:var(--ink)}
+.footer__col-h{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(251,247,240,.3);font-weight:600;margin-bottom:20px}
+.footer__links{list-style:none;display:flex;flex-direction:column;gap:12px}
+.footer__links a{font-size:.88rem;font-weight:300;color:rgba(251,247,240,.6);transition:color .2s}
+.footer__links a:hover{color:var(--tan)}
+.footer__bottom{border-top:1px solid rgba(255,255,255,.07);padding-top:28px;display:flex;justify-content:space-between;align-items:center;font-size:.76rem;color:rgba(251,247,240,.25)}
+
+/* ─── ANIMATIONS ─── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+@keyframes zoomIn{from{opacity:0;transform:scale(1.08)}to{opacity:1;transform:scale(1)}}
+@keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 6px rgba(200,151,90,.25),0 0 0 12px rgba(200,151,90,.1)}50%{box-shadow:0 0 0 10px rgba(200,151,90,.2),0 0 0 20px rgba(200,151,90,.05)}}
+.reveal{opacity:0;transform:translateY(32px);transition:opacity .65s var(--ease),transform .65s var(--ease)}
+.reveal.vis{opacity:1;transform:none}
+.reveal-d1{transition-delay:.1s}
+.reveal-d2{transition-delay:.2s}
+.reveal-d3{transition-delay:.3s}
+.reveal-d4{transition-delay:.4s}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:960px){
+  .hero{grid-template-columns:1fr;min-height:auto}
+  .hero__right{height:55vw;order:-1}
+  .hero__veil{background:linear-gradient(to bottom,var(--cream) 0%,transparent 30%)}
+  .hero__left{padding:100px 7% 70px}
+  .why .container,.location .container,.reviews .container{grid-template-columns:1fr;gap:50px}
+  .why__img-stack{height:340px}
+  .pricing__grid{grid-template-columns:1fr}
+  .pcard--featured{order:-1}
+  .footer__grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:640px){
+  .nav__links{display:none}
+  .nav__burger{display:flex}
+  .why__cards{grid-template-columns:1fr}
+  .rev__grid{grid-template-columns:1fr}
+  .menu-sec .sec-head{flex-direction:column;align-items:flex-start;gap:12px}
+  .footer__grid{grid-template-columns:1fr;gap:40px}
+  .footer__bottom{flex-direction:column;gap:10px;text-align:center}
+  .cta-band .section__body{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="container">
+    <a href="#" class="nav__logo">Montero's <b>Bowls</b></a>
+    <ul class="nav__links">
+      <li><a href="#menu-sec">Menú</a></li>
+      <li><a href="#precios">Precios</a></li>
+      <li><a href="#ubicacion">Ubicación</a></li>
+      <li><a href="https://wa.me/573000000000" class="nav__cta">Pedir ahora</a></li>
+    </ul>
+    <div class="nav__burger" id="burger">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero__left">
+    <div class="hero__eyebrow">
+      <div class="hero__dot"></div>
+      <span>Abierto hoy · La Dorada, Caldas</span>
+    </div>
+    <h1 class="hero__h1">Come sano.<br>Sin <em>perder</em><br>tu tiempo.</h1>
+    <p class="hero__value">Bowls listos en minutos, hechos con ingredientes frescos del día. Para personas que cuidan su cuerpo aunque el tiempo no sobre.</p>
+    <div class="hero__pills">
+      <span class="pill">⏱ Listo en 10 min</span>
+      <span class="pill">🌱 Sin procesados</span>
+      <span class="pill">📍 Con domicilio</span>
+    </div>
+    <div class="hero__ctas">
+      <a href="#menu-sec" class="btn btn--dark">Ver el menú →</a>
+      <a href="#precios" class="hero__link">Ver precios</a>
+    </div>
+    <div class="hero__social-proof">
+      <div class="avatars">
+        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&auto=format&fit=crop&q=80" alt="cliente"/>
+        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&auto=format&fit=crop&q=80" alt="cliente"/>
+        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=80&auto=format&fit=crop&q=80" alt="cliente"/>
+      </div>
+      <div>
+        <div class="sp__stars">★★★★★</div>
+        <div class="sp__text"><strong>+200 clientes</strong> satisfechos en La Dorada</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero__right">
+    <img class="hero__img"
+      src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
+      alt="Bowl saludable fresco"/>
+    <div class="hero__veil"></div>
+    <div class="hero__float">
+      <div class="hf__icon">🥗</div>
+      <div class="hf__num">12</div>
+      <div class="hf__label">Opciones de bowl<br>todos los días</div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker__track">
+    <span class="ticker__item">Açaí Bowl</span><span class="ticker__sep">✦</span>
+    <span class="ticker__item">Quinoa Bowl</span><span class="ticker__sep">✦</span>
+    <span class="ticker__item">Veggie Bowl</span><span class="ticker__sep">✦</span>
+    <span class="ticker__item">Protein Bowl</span><span class="ticker__sep">✦</span>
+    <span class="ticker__item">Smoothie Bowl</span><span class="ticker__sep">✦</span>
+    <span class="ticker__item">Ingredientes frescos</span><span class="ticker__sep">✦</span>
+    <span class="ticker__item">Hecho hoy</span><span class="ticker__sep">✦</span>
+    <span class="ticker__item">La Dorada, Caldas</span><span class="ticker__sep">✦</span>
+    <span class="ticker__item">Açaí Bowl</span><span class="ticker__sep">✦</span>
+    <span class="ticker__item">Quinoa Bowl</span><span class="ticker__sep">✦</span>
+    <span class="ticker__item">Veggie Bowl</span><span class="ticker__sep">✦</span>
+    <span class="ticker__item">Protein Bowl</span><span class="ticker__sep">✦</span>
+    <span class="ticker__item">Smoothie Bowl</span><span class="ticker__sep">✦</span>
+    <span class="ticker__item">Ingredientes frescos</span><span class="ticker__sep">✦</span>
+    <span class="ticker__item">Hecho hoy</span><span class="ticker__sep">✦</span>
+    <span class="ticker__item">La Dorada, Caldas</span><span class="ticker__sep">✦</span>
+  </div>
+</div>
+
+<!-- WHY -->
+<section class="why">
+  <div class="container">
+    <div>
+      <p class="section__tag reveal">¿Por qué elegirnos?</p>
+      <h2 class="section__h2 reveal">La comida sana<br>que <em>cabe</em> en tu día</h2>
+      <p class="section__body reveal">Sabemos que entre el trabajo, el gym y la familia, cocinar saludable se vuelve imposible. Por eso existimos: para que comer bien no te cueste tiempo, culpa ni esfuerzo.</p>
+      <div class="why__cards">
+        <div class="why__card reveal reveal-d1">
+          <div class="wc__icon">⚡</div>
+          <div class="wc__title">Rápido y sin complicaciones</div>
+          <div class="wc__desc">Pedí por WhatsApp en segundos. Tu bowl listo en 10 minutos.</div>
+        </div>
+        <div class="why__card reveal reveal-d2">
+          <div class="wc__icon">🥦</div>
+          <div class="wc__title">Ingredientes del día</div>
+          <div class="wc__desc">Compramos fresco cada mañana. Sin conservantes, sin rellenos.</div>
+        </div>
+        <div class="why__card reveal reveal-d3">
+          <div class="wc__icon">🎯</div>
+          <div class="wc__title">Personalizable</div>
+          <div class="wc__desc">Adaptamos cada bowl a tus objetivos: proteína, vegano, bajo en carbos.</div>
+        </div>
+        <div class="why__card reveal reveal-d4">
+          <div class="wc__icon">📍</div>
+          <div class="wc__title">Domicilio en La Dorada</div>
+          <div class="wc__desc">Te llevamos tu bowl sin costo adicional en la zona céntrica.</div>
+        </div>
+      </div>
+    </div>
+    <div class="why__img-stack reveal">
+      <img class="wi__main"
+        src="https://images.unsplash.com/photo-1505253716362-afaea1d3d1af?ixlib=rb-4.0.3&auto=format&fit=crop&w=700&q=80"
+        alt="Bowl colorido con frutas"/>
+      <img class="wi__accent"
+        src="https://images.unsplash.com/photo-1546793665-c74683f339c1?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+        alt="Ingredientes frescos"/>
+      <div class="wi__chip">🌿 100% Natural</div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section class="menu-sec" id="menu-sec">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div>
+        <p class="section__tag">Nuestro menú</p>
+        <h2 class="section__h2" style="margin-bottom:0">Bowls para <em>cada</em> momento</h2>
+      </div>
+      <a href="https://wa.me/573000000000" class="sec-head__cta">Pedir por WhatsApp →</a>
+    </div>
+    <div class="menu__tabs reveal">
+      <button class="mtab active" onclick="filterMenu('todos',this)">Todos</button>
+      <button class="mtab" onclick="filterMenu('energia',this)">Energía</button>
+      <button class="mtab" onclick="filterMenu('proteina',this)">Proteína</button>
+      <button class="mtab" onclick="filterMenu('vegano',this)">Vegano</button>
+      <button class="mtab" onclick="filterMenu('dulce',this)">Dulce</button>
+    </div>
+    <div class="menu__grid" id="menuGrid">
+
+      <article class="mcard reveal" data-cat="dulce energia">
+        <div class="mcard__img">
+          <img src="https://images.unsplash.com/photo-1590301157890-4810ed352733?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Açaí Bowl"/>
+          <span class="mcard__badge badge--pop">⭐ Favorito</span>
+        </div>
+        <div class="mcard__body">
+          <div class="mcard__name">Açaí Bowl</div>
+          <div class="mcard__ing">Açaí orgánico, granola artesanal, banano, fresas, miel silvestre</div>
+          <div class="mcard__footer">
+            <div class="mcard__cals"><strong>380 kcal</strong> · Alto en antioxidantes</div>
+            <button class="mcard__add" onclick="pedirBowl('Açaí Bowl')">Pedir</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="mcard reveal reveal-d1" data-cat="proteina">
+        <div class="mcard__img">
+          <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Quinoa Bowl"/>
+          <span class="mcard__badge badge--new">🆕 Nuevo</span>
+        </div>
+        <div class="mcard__body">
+          <div class="mcard__name">Quinoa Bowl</div>
+          <div class="mcard__ing">Quinoa, aguacate, tomate cherry, pepino, aderezo de limón</div>
+          <div class="mcard__footer">
+            <div class="mcard__cals"><strong>420 kcal</strong> · Proteína completa</div>
+            <button class="mcard__add" onclick="pedirBowl('Quinoa Bowl')">Pedir</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="mcard reveal reveal-d2" data-cat="vegano">
+        <div class="mcard__img">
+          <img src="https://images.unsplash.com/photo-1546793665-c74683f339c1?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Veggie Bowl"/>
+          <span class="mcard__badge badge--veg">🌱 Vegano</span>
+        </div>
+        <div class="mcard__body">
+          <div class="mcard__name">Veggie Bowl</div>
+          <div class="mcard__ing">Garbanzos, remolacha, espinaca, zanahoria, hummus casero</div>
+          <div class="mcard__footer">
+            <div class="mcard__cals"><strong>340 kcal</strong> · Rico en fibra</div>
+            <button class="mcard__add" onclick="pedirBowl('Veggie Bowl')">Pedir</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="mcard reveal reveal-d1" data-cat="proteina energia">
+        <div class="mcard__img">
+          <img src="https://images.unsplash.com/photo-1551024506-0bccd828d307?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Protein Bowl"/>
+        </div>
+        <div class="mcard__body">
+          <div class="mcard__name">Protein Bowl</div>
+          <div class="mcard__ing">Pechuga a la plancha, arroz integral, brócoli, edamame, salsa de soya</div>
+          <div class="mcard__footer">
+            <div class="mcard__cals"><strong>520 kcal</strong> · 38g de proteína</div>
+            <button class="mcard__add" onclick="pedirBowl('Protein Bowl')">Pedir</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="mcard reveal reveal-d2" data-cat="dulce energia">
+        <div class="mcard__img">
+          <img src="https://images.unsplash.com/photo-1571771019784-3ff35f4f4277?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Smoothie Bowl"/>
+          <span class="mcard__badge badge--pop">🔥 Trending</span>
+        </div>
+        <div class="mcard__body">
+          <div class="mcard__name">Smoothie Bowl</div>
+          <div class="mcard__ing">Mango, piña, espirulina, coco rallado, semillas de chía</div>
+          <div class="mcard__footer">
+            <div class="mcard__cals"><strong>310 kcal</strong> · Hidratante natural</div>
+            <button class="mcard__add" onclick="pedirBowl('Smoothie Bowl')">Pedir</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="mcard reveal reveal-d3" data-cat="proteina vegano">
+        <div class="mcard__img">
+          <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Power Bowl"/>
+          <span class="mcard__badge badge--veg">🌱 Vegano</span>
+        </div>
+        <div class="mcard__body">
+          <div class="mcard__name">Power Bowl</div>
+          <div class="mcard__ing">Tofu marinado, quinoa negra, kale, nueces, aderezo tahini</div>
+          <div class="mcard__footer">
+            <div class="mcard__cals"><strong>460 kcal</strong> · Omega 3 natural</div>
+            <button class="mcard__add" onclick="pedirBowl('Power Bowl')">Pedir</button>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="precios">
+  <div class="container">
+    <div class="pricing__head">
+      <p class="section__tag reveal">Precios claros, sin sorpresas</p>
+      <h2 class="section__h2 reveal">Elige tu <em>plan</em> ideal</h2>
+      <p class="section__body reveal">Desde un bowl individual hasta un plan semanal para toda la familia. Siempre fresco, siempre justo.</p>
+    </div>
+    <div class="pricing__grid">
+
+      <div class="pcard reveal">
+        <div class="pcard__name">Bowl Individual</div>
+        <div class="pcard__desc">Perfecto para probar o para el almuerzo de hoy.</div>
+        <div class="pcard__price">
+          <span class="pcard__currency">COP $</span>
+          <span class="pcard__amount">18.000</span>
+        </div>
+        <ul class="pcard__items">
+          <li>1 bowl a elegir del menú</li>
+          <li>Porción generosa (400-550g)</li>
+          <li>Ingredientes del día</li>
+          <li>Personalizable sin costo extra</li>
+        </ul>
+        <button class="btn pcard__btn--outline" onclick="pedirBowl('Bowl Individual')">Pedir ahora →</button>
+      </div>
+
+      <div class="pcard pcard--featured reveal reveal-d1">
+        <div class="pcard__pop">⭐ Más popular</div>
+        <div class="pcard__name">Dúo Saludable</div>
+        <div class="pcard__desc">Para ti y un acompañante. La opción más elegida.</div>
+        <div class="pcard__price">
+          <span class="pcard__currency">COP $</span>
+          <span class="pcard__amount">33.000</span>
+        </div>
+        <ul class="pcard__items">
+          <li>2 bowls a elegir (distintos)</li>
+          <li>Ahorras $3.000 vs individual</li>
+          <li>Domicilio gratis en zona céntrica</li>
+          <li>Bebida natural incluida</li>
+          <li>Postre saludable de cortesía</li>
+        </ul>
+        <button class="btn pcard__btn--solid" onclick="pedirBowl('Dúo Saludable')">Quiero este →</button>
+      </div>
+
+      <div class="pcard reveal reveal-d2">
+        <div class="pcard__name">Plan Semanal</div>
+        <div class="pcard__desc">Lunes a viernes sin pensar qué comer. Para los que van en serio.</div>
+        <div class="pcard__price">
+          <span class="pcard__currency">COP $</span>
+          <span class="pcard__amount">80.000</span>
+        </div>
+        <ul class="pcard__items">
+          <li>5 bowls (uno por día hábil)</li>
+          <li>Menú rotativo variado</li>
+          <li>Domicilio incluido toda la semana</li>
+          <li>Personalización nutricional</li>
+          <li>Ahorras $10.000 vs diario</li>
+        </ul>
+        <button class="btn pcard__btn--outline" onclick="pedirBowl('Plan Semanal')">Suscribirme →</button>
+      </div>
+
+    </div>
+    <p class="pricing__note reveal">Precios incluyen IVA · Domicilio gratis en zona céntrica de La Dorada · Pago contra entrega o Nequi/Daviplata</p>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="reviews">
+  <div class="container">
+    <div class="reviews__left reveal">
+      <p class="section__tag">Lo que dicen</p>
+      <h2 class="section__h2">Clientes<br><em>felices</em></h2>
+      <div class="rev__score">
+        <span class="rev__num">4.9</span>
+      </div>
+      <div class="rev__stars">★★★★★</div>
+      <p class="rev__total">Basado en +150 reseñas</p>
+      <a href="https://wa.me/573000000000" class="btn btn--dark">Hacer mi primer pedido →</a>
+    </div>
+    <div class="rev__grid">
+      <div class="rcard reveal">
+        <div class="rcard__stars">★★★★★</div>
+        <p class="rcard__text">"Llevo 3 semanas con el plan semanal y ya no sé cómo vivía sin esto. Rico, rápido y no me queda la culpa de haber comido mal."</p>
+        <div class="rcard__author">
+          <img class="rcard__avatar" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&auto=format&fit=crop&q=80" alt="Valentina"/>
+          <div>
+            <div class="rcard__name">Valentina R.</div>
+            <div class="rcard__loc">La Dorada · Plan Semanal</div>
+          </div>
+        </div>
+      </div>
+      <div class="rcard reveal reveal-d1">
+        <div class="rcard__stars">★★★★★</div>
+        <p class="rcard__text">"El Protein Bowl es exactamente lo que necesitaba antes del gym. Las porciones son generosas y se nota que los ingredientes son frescos."</p>
+        <div class="rcard__author">
+          <img class="rcard__avatar" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&auto=format&fit=crop&q=80" alt="Andrés"/>
+          <div>
+            <div class="rcard__name">Andrés M.</div>
+            <div class="rcard__loc">La Dorada · Protein Bowl</div>
+          </div>
+        </div>
+      </div>
+      <div class="rcard reveal reveal-d2">
+        <div class="rcard__stars">★★★★★</div>
+        <p class="rcard__text">"Me lo llevan al consultorio y llega fresquísimo. No hay otro lugar en La Dorada que ofrezca algo así. El Açaí Bowl es adictivo."</p>
+        <div class="rcard__author">
+          <img class="rcard__avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=80&auto=format&fit=crop&q=80" alt="María"/>
+          <div>
+            <div class="rcard__name">Dr. María C.</div>
+            <div class="rcard__loc">La Dorada · Açaí Bowl</div>
+          </div>
+        </div>
+      </div>
+      <div class="rcard reveal reveal-d3">
+        <div class="rcard__stars">★★★★★</div>
+        <p class="rcard__text">"Pedí el Dúo Saludable con mi esposa y quedamos encantados. El servicio es rápido y el precio es muy justo para la calidad que dan."</p>
+        <div class="rcard__author">
+          <img class="rcard__avatar" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&auto=format&fit=crop&q=80" alt="Carlos"/>
+          <div>
+            <div class="rcard__name">Carlos P.</div>
+            <div class="rcard__loc">La Dorada · Dúo Saludable</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LOCATION -->
+<section class="location" id="ubicacion">
+  <div class="container">
+    <div class="location__map reveal">
+      <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=900&q=80" alt="Mapa La Dorada Caldas" class="map__img"/>
+      <div class="map__pin">
+        <div class="map__pin__dot"></div>
+        <div class="map__pin__line"></div>
+        <div class="map__pin__label">📍 Montero's Bowls</div>
+      </div>
+    </div>
+    <div class="reveal reveal-d1">
+      <p class="section__tag loc__tag">¿Dónde estamos?</p>
+      <h2 class="loc__h2">Estamos en el<br>corazón de <em>La Dorada</em></h2>
+      <p class="loc__p">Encuéntranos en La Dorada, Caldas. También hacemos domicilios en la zona céntrica del municipio. Solo escríbenos por WhatsApp y te llevamos tu bowl donde estés.</p>
+      <div class="loc__infos">
+        <div class="loc__info">
+          <div class="loc__icon">📍</div>
+          <div class="loc__detail">
+            <strong>La Dorada, Caldas</strong>
+            <span>Centro del municipio</span>
+          </div>
+        </div>
+        <div class="loc__info">
+          <div class="loc__icon">🕐</div>
+          <div class="loc__detail">
+            <strong>Lunes a sábado: 7am – 3pm</strong>
+            <span>Domingos: 8am – 1pm</span>
+          </div>
+        </div>
+        <div class="loc__info">
+          <div class="loc__icon">🛵</div>
+          <div class="loc__detail">
+            <strong>Domicilio gratis</strong>
+            <span>En zona céntrica de La Dorada</span>
+          </div>
+        </div>
+        <div class="loc__info">
+          <div class="loc__icon">💳</div>
+          <div class="loc__detail">
+            <strong>Nequi · Daviplata · Efectivo</strong>
+            <span>Pago fácil y seguro</span>
+          </div>
+        </div>
+      </div>
+      <div class="loc__ctas">
+        <a href="https://wa.me/573000000000" class="btn btn--wa">Pedir por WhatsApp</a>
+        <a href="https://maps.google.com" class="btn btn--outline">Ver en Maps →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BAND -->
+<section class="cta-band">
+  <div class="container">
+    <p class="section__tag reveal" style="color:var(--tan-l)">¿Listo para empezar?</p>
+    <h2 class="section__h2 reveal">Tu primer bowl saludable<br>a un mensaje de distancia</h2>
+    <p class="section__body reveal">Sin apps, sin registro, sin complicaciones. Solo escríbenos por WhatsApp y en 10 minutos tu bowl está listo.</p>
+    <div class="cta-band__group reveal">
+      <a href="https://wa.me/573000000000" class="btn btn--wa">Escribir por WhatsApp →</a>
+      <a href="#menu-sec" class="btn btn--outline" style="border-color:rgba(232,245,228,.4);color:var(--cream)">Ver el menú primero</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer__grid">
+      <div>
+        <div class="footer__brand">Montero's <b>Bowls</b></div>
+        <p class="footer__desc">Bowls saludables y deliciosos, preparados cada día con ingredientes frescos y mucho amor en La Dorada, Caldas.</p>
+        <div class="footer__socials">
+          <a href="#" class="fsoc">f</a>
+          <a href="#" class="fsoc">ig</a>
+          <a href="https://wa.me/573000000000" class="fsoc">wa</a>
+        </div>
+      </div>
+      <div>
+        <p class="footer__col-h">Menú</p>
+        <ul class="footer__links">
+          <li><a href="#">Açaí Bowl</a></li>
+          <li><a href="#">Quinoa Bowl</a></li>
+          <li><a href="#">Veggie Bowl</a></li>
+          <li><a href="#">Protein Bowl</a></li>
+          <li><a href="#">Smoothie Bowl</a></li>
+          <li><a href="#">Power Bowl</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer__col-h">Empresa</p>
+        <ul class="footer__links">
+          <li><a href="#">Nosotros</a></li>
+          <li><a href="#precios">Precios</a></li>
+          <li><a href="#ubicacion">Ubicación</a></li>
+          <li><a href="https://wa.me/573000000000">Contacto</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2025 Montero's Bowls · La Dorada, Caldas</span>
+      <span>Hecho con 🌿 para gente ocupada que come bien</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>nav.classList.toggle('up',scrollY>30),{passive:true});
+
+const obs=new IntersectionObserver(e=>e.forEach(el=>{if(el.isIntersecting){el.target.classList.add('vis');obs.unobserve(el.target)}}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{const t=document.querySelector(a.getAttribute('href'));if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth',block:'start'})}}));
+
+function filterMenu(cat,btn){
+  document.querySelectorAll('.mtab').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.mcard').forEach(c=>{
+    c.style.display=(cat==='todos'||c.dataset.cat.includes(cat))?'':'none';
+  });
+}
+
+function pedirBowl(nombre){
+  const msg=encodeURIComponent('¡Hola! Quiero pedir: '+nombre+' 🥗');
+  window.open('https://wa.me/573000000000?text='+msg,'_blank');
+}
+</script>
+</body>
+</html>
