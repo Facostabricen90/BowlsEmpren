@@ -253,6 +253,7 @@ footer{background:var(--ink);padding:72px 0 32px}
 }
 @media(max-width:640px){
   .nav__links{display:none}
+  .nav__links.open{display:flex;flex-direction:column;align-items:flex-start;gap:18px;position:absolute;top:68px;left:0;right:0;padding:20px 4%;background:rgba(251,247,240,.97);box-shadow:var(--shadow)}
   .nav__burger{display:flex}
   .why__cards{grid-template-columns:1fr}
   .rev__grid{grid-template-columns:1fr}
@@ -266,7 +267,7 @@ footer{background:var(--ink);padding:72px 0 32px}
 <body>
 
 <!-- NAV -->
-<nav id="nav">
+<nav class="nav" id="nav">
   <div class="container">
     <a href="#" class="nav__logo">Montero's <b>Bowls</b></a>
     <ul class="nav__links">
@@ -742,7 +743,12 @@ window.addEventListener('scroll',()=>nav.classList.toggle('up',scrollY>30),{pass
 const obs=new IntersectionObserver(e=>e.forEach(el=>{if(el.isIntersecting){el.target.classList.add('vis');obs.unobserve(el.target)}}),{threshold:.12});
 document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 
-document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{const t=document.querySelector(a.getAttribute('href'));if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth',block:'start'})}}));
+const burger=document.getElementById('burger');
+const navLinks=document.querySelector('.nav__links');
+burger.addEventListener('click',()=>navLinks.classList.toggle('open'));
+navLinks.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>navLinks.classList.remove('open')));
+
+document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{const h=a.getAttribute('href');const t=h.length>1?document.querySelector(h):null;e.preventDefault();if(t)t.scrollIntoView({behavior:'smooth',block:'start'});else window.scrollTo({top:0,behavior:'smooth'})}));
 
 function filterMenu(cat,btn){
   document.querySelectorAll('.mtab').forEach(b=>b.classList.remove('active'));
